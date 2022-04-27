@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+      body {
+        transition : all 2.5s cubic-bezier(0.075, 0.82, 0.165, 1);
+        overflow-x: hidden;
+      }
+      .navi {
+        position: fixed;
+        left: 50%;
+        top: 46%;
+        transform: translate(-50%, -50%);
+      }
+      h1 {
+        font-size : 30px;
+        font-weight: bold;
+        text-align: center;
+      }
+      button{
+        font-size: 20px;
+        padding : 10px 30px;
+        cursor : pointer;
+      }
+
+      section {
+        height: 100vh;
+        width: 100vw;
+        border-top: 2px dashed rgba(0,0,0,.5);
+      }
+    </style>
+    <script>
+      window.onload=function(){
+        var prevBtn = document.querySelector(".prevBtn");
+        var nextBtn = document.querySelector(".nextBtn");
+        var h1 = document.getElementsByTagName("h1")[0];
+        var bgColorArr = ["#85FFBD", "#FFFB7D", "#E0C3FC", "#00DBDE"];
+        var section = document.getElementsByTagName("section");
+      
+        var pageNum = 0;
+        var totalNum = section.length; //4
+        
+         prevBtn.addEventListener("click", function(){
+          if(pageNum > 0){
+            pageNum --;
+          }
+          pageChangeFunc();
+          pagemove();
+        })
+        nextBtn.addEventListener("click", function(){
+          if(pageNum < totalNum-1){//totalNum-1=3
+            pageNum ++;
+          }
+          pageChangeFunc();
+          pagemove();
+        })
+
+        // -------------------------------------------------------------------------
+        function pageChangeFunc(){
+          h1.innerHTML = (pageNum + 1) + " 페이지 입니다.";
+          document.getElementsByTagName("body")[0].style.background = bgColorArr[pageNum];
+          // console.log(bgColorArr[pageNum])
+        }
+        pageChangeFunc() //처음 로딩 되었을 때 pageChangeFunc()가 실행되게 하기 위해서.
+        // -------------------------------------------------------------------------
+        function pagemove(){
+          window.scrollTo({
+            top: section[pageNum].offsetTop,
+            behavior: 'smooth',
+          })
+        }
+        window.addEventListener("scroll",()=>{
+          var scroll = window.scrollY;
+          for(i=0;i<totalNum-1;i++){
+            if(scroll>=section[i].offsetTop){
+              h1.innerHTML = `${i+1}페이지 입니다.`
+            }
+          }
+        })
+        /*window.addEventListener("scroll", function(){
+          var scroll = window.scrollY;
+          for(var i=0; i<totalNum; i++){
+            if(scroll > section[i].offsetTop && scroll < section[i].offsetTop + section[i].offsetHeight){
+              pageNum = i;
+              break;
+            }
+          }
+          pageChangeFunc();
+        });*/
+//------------------------------------------------------------------------------------------
+        
+          // console.log(scroll) 스크롤 값 출력
+            // console.log(Math.ceil(scroll))
+          //두번째 방법 
+           //totalNum=4
+            //console.log(i)
+            /*if(scroll > section[i].offsetTop - window.innerHeight/3  && 
+               scroll < section[i].offsetTop - window.innerHeight/3 + section[i].offsetHeight){
+               pageNum = i;
+               break;
+            }*/
+            
+            
+          /*
+          if(scroll<section[1].offsetTop){
+            pageNum = 0;
+          }
+          if(scroll>section[1].offsetTop){
+            pageNum = 1;
+          }
+          */
+        
+        /*console.log(section[0].offsetTop);
+        console.log(window.outerHeight/3);
+        console.log(section[0].offsetHeight)
+        */
+      }
+    </script>
+</head>
+<body>
+      <div class="navi">
+        <button type="button" class="prevBtn">PREV</button>
+        <button type="button" class="nextBtn">NEXT</button>
+        <h1></h1>
+      </div>
+
+      <section>
+        <h2>page 1</h2>
+      </section>
+
+      <section>
+        <h2>page 2</h2>
+      </section>
+
+      <section>
+        <h2>page 3</h2>
+      </section>
+
+      <section>
+        <h2>page 4</h2>
+      </section>
+    </body>
+</html>

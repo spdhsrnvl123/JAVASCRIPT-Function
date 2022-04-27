@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    h1{
+      font-size : 100px;
+      font-weight: bold;
+    }
+    button{
+      font-size:20px;
+      padding : 10px 30px;
+      cursor:pointer;
+    }
+  </style>
+  <script>
+    /*
+    자바스크립트에서 페이지가 로드 되면 자동으로 실행되는 전역 콜백함수
+    페이지의 모든 요소들이 로드되어야 호출되며, 한 페이지에서 하나의 window.onload()함수만 적용 
+    */
+    window.onload = function(){
+      var button = document.querySelector(".startBtn");
+      // =document.querySelectorAll(".startBtn")[0];
+      var h1= document.getElementsByTagName("h1")[0];
+      // jquery였다면 var h1 =$("h1")
+
+      var handArr = ["가위","바위","보"];
+      
+      button.addEventListener("click",function(){
+        var num =Math.round(Math.random()*(handArr.length-1));
+        // -1을 안해주면 undefined가 나옴.
+        h1.innerHTML = handArr[num];
+        // alert(handArr[num])
+      })
+    }
+  </script>
+</head>
+<body>
+  <button type ="button" class ="startBtn">리셋</button>
+  <h1>가위</h1>
+</body>
+</html>

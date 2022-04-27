@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    body{
+      height: 100vh;
+    }
+    .contWrap{
+      position: relative;
+      width:400px;
+      background-color: #e6e6e6;
+      padding : 20px;
+      top:50%;
+      left:50%;
+      transform: translate(-50%, -50%);
+      /* 가운데 정렬 */
+      text-align: center;
+    }
+    input{
+      padding:10px 20x;
+      font-size:20px;
+      text-align:center;
+      max-width: 170px;
+    }
+    button{
+      font-size:20px;
+      padding: 8px 20px;
+    }
+  </style>
+  
+  <script>
+    // var input = document.getElementsByTagName("input")[0];
+    //document가 화면에 그려지기 전에 input을 부르기 때문에 작동안함
+    // var num = 0;
+    // 변수 선언같은 경우는 가능
+    window.onload = function(){
+      var input = document.getElementsByTagName("input")[0];
+      var result = document.querySelector(".result");
+      var button = document.querySelector(".startBtn");
+
+      button.addEventListener("click",function(){
+        resultFunc();
+      });
+      var resultArr = ["업 ▲", "다운 ▼", "정답!"];
+      var randomNum = 5; //정답.
+
+      function resultFunc(){
+        var value = input.value;
+        //input에 입력된 값(value)을 가져온다.
+        if(value < randomNum){
+          result.innerHTML = resultArr[0];
+        }else if(value > randomNum){
+          result.innerHTML = resultArr[1];
+        }else{
+          result.innerHTML = resultArr[2];
+        }
+      }
+    }
+  </script>
+</head>
+<body>
+    <div class="contWrap">
+      <h3>내가 생각한 숫자는 몇 일까~요?</h3>
+      <p class="result">(1부터 10사이)</p>
+      <input type ="number" value="1" max="10" min="1">
+      <button type = "button" class="startBtn">확인</button>
+    </div>
+</body>
+</html>

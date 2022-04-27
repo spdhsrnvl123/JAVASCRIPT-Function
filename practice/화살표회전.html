@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>화살표 회전</title>
+  <style>
+    body{
+      overflow:hiiden;
+    }
+    h1{
+      font-size: 20px;
+    }
+    button{
+      font-size:20px;
+      padding : 10px 30px;
+      cursor : pointer;
+    }
+    .arrowWrap{
+      margin:30px;
+    }
+    .arrowWrap .arrow{
+        transition : transform 2s cubic-bezier(1.000, -0.010, 0.175, 0.970);
+        /* transition-timing-function->https://matthewlein.com/tools/ceaser이용. */
+        background-image: url(../section1/image/up-arrow.svg);
+        /* 이미지가 로딩되지 않는경우 ..루트로 접근 */
+        /* background-color: red; */
+        width:500px;
+        height: 500px;
+        background-size: contain;
+    }
+  </style>
+  <script>
+    window.onload = function(){
+      var resetBtn = document.querySelector(".resetBtn");
+      var startBtn = document.querySelector(".startBtn");
+
+      var h1 = document.getElementsByTagName("h1")[0];
+      var arrow = document.querySelector(".arrow");
+      var rotateNum = 0;
+
+      //초기화
+      resetBtn.addEventListener("click", function(){
+        rotateNum = 0;
+        h1.innerHTML = rotateNum + "deg";
+        arrow.style.transform = "rotate("+rotateNum+"deg)";
+      })
+
+      startBtn.addEventListener("click",function(){
+          rotate();
+      })
+      let timer;
+      //알고리즘 외우기.
+      function rotate(){
+        clearTimeout(timer)
+        rotateNum = Math.round(Math.random()*180);
+        
+        timer = setTimeout(()=>{
+          if(rotateNum<=90){
+          console.log('a')
+        }
+        },3000)
+        // 화살표 각도가 90도가 나올 경우 alert('0~90deg입니다') 3초뒤에 출력
+        //setTimout 비동기 함수이며 두번째 인자에 실행되는 시점의 숫자를 입력한다.
+        
+        h1.innerHTML = rotateNum +"deg";
+        arrow.style.transform = `rotate(${rotateNum}deg)`;
+
+      }
+    }
+
+  </script>
+</head>
+<body>
+    <button type="button" class="resetBtn">리셋</button>
+    <button type="button" class="startBtn">회전</button>
+    <h1>0deg</h1>
+    <div class ="arrowWrap">
+      <div class="arrow"></div>
+    </div>
+</body>
+</html>
